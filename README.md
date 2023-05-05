@@ -1,6 +1,6 @@
 ## MiniDisc
 
-This repository contains code for preprint titled [MiniDisc: Minimal Distillation Schedule for Language Model Compression](https://arxiv.org/abs/2205.14570).
+This repository contains code for Preprint titled [MiniDisc: Minimal Distillation Schedule for Language Model Compression](https://arxiv.org/abs/2205.14570).
 
 **************************** **Updates** ****************************
 
