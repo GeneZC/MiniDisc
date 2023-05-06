@@ -96,7 +96,7 @@ Please cite our paper if you use the code in your work:
 ```bibtex
 @inproceedings{zhang2022minidisc,
    title={MiniDisc: Minimal Distillation Schedule for Language Model Compression},
-   author={Chen Zhang, Yang Yang, Qifan Wang, Jiahao Liu, Jingang Wang, Yunsen Xian, Wei Wu, and Dawei Song},
+   author={Zhang, Chen and Yang, Yang and Wang, Qifan and Liu, Jiahao and Wang, Jingang and Xian, Yunsen and Wu, Wei and Song, Dawei},
    booktitle={Preprint},
    year={2022}
 }
