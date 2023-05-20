@@ -1,6 +1,6 @@
 ## MiniDisc
 
-This repository contains code for Preprint titled [MiniDisc: Minimal Distillation Schedule for Language Model Compression](https://arxiv.org/abs/2205.14570).
+This repository contains code for paper titled [MiniDisc: Minimal Distillation Schedule for Language Model Compression](https://arxiv.org/abs/2205.14570).
 
 **************************** **Updates** ****************************
 
@@ -97,7 +97,7 @@ Please cite our paper if you use the code in your work:
 @inproceedings{zhang2022minidisc,
    title={MiniDisc: Minimal Distillation Schedule for Language Model Compression},
    author={Zhang, Chen and Yang, Yang and Wang, Qifan and Liu, Jiahao and Wang, Jingang and Xian, Yunsen and Wu, Wei and Song, Dawei},
-   booktitle={Preprint},
+   booktitle={arXiv},
    year={2022}
 }
 ```
