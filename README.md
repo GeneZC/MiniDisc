@@ -70,7 +70,7 @@ We provide example scripts of distilling finetuned teacher models via teacher as
 * `--teacher_model_path`: similar to above.
 * `--task_name`: similar to above.
 * `--data_type`: similar to above.
-* `--layer_or_sparsity_path`: similar to `layer_or_sparsity`, this gives a sequential distillation path. `6,4L` to indicate the 4-layer student distilled with a 6-layer teacher assistant, and `80,90S` to indicate the 90% student distilled with a 80% teacher assistant.
+* `--layer_or_sparsity_path`: similar to `layer_or_sparsity`, this gives a sequential distillation path. `6,4L` to indicate the 4-layer student distilled with a 6-layer teacher assistant, and `80,90S` to indicate the 90%-sparsity student distilled with a 80%-sparsity teacher assistant.
 
 **MiniDisc**
 
