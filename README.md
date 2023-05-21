@@ -7,15 +7,14 @@ This repository contains code for paper titled [MiniDisc: Minimal Distillation S
 <!-- Thanks for your interest in our repo! -->
 
 * 5/5/23: We released our paper. Check it out!
-* Code is under preparation. Stay tuned.
+* 21/5/23: We released our code. Check it out!
 
 ## Quick Links
 
   - [Overview](#overview)
   - [Getting Started](#getting-started)
     - [Requirements](#requirements)
-    - [GLUE Data](#glue-data)
-    - [CoNLL Data](#conll-data)
+    - [GLUE & CoNLL Data](#glue&conll-data)
     - [Training & Evaluation](#training&evaluation)
   - [Bugs or Questions?](#bugs-or-questions)
   - [Citation](#citation)
@@ -32,58 +31,59 @@ Recent studies have uncovered that language model distillation is less effective
 - Numpy
 - Transformers
 
-### GLUE Data
+### GLUE & CoNLL Data
 
-Get GLUE data through the [link](https://github.com/nyu-mll/jiant/blob/master/scripts/download_glue_data.py) and put it to the corresponding directory. For example, MRPC dataset should be placed into `datasets/mrpc`.
+Download GLUE data through the [link](https://github.com/nyu-mll/jiant/blob/master/scripts/download_glue_data.py), and CoNLL data throught another [link](https://www.clips.uantwerpen.be/conll2003/ner/) in exact CoNLL format. Put them to the corresponding directories. For example, MRPC dataset should be placed into `datasets/mrpc`.
 
-### CoNLL Data
+:warning: The CoNLL data is not fully tested, but we want to include it for potential interests.
 
-### Training & Evaluation
+### Distillation & Evaluation
 
-<!--
-The training and evaluation are achieved in several scripts. We provide example scripts as follows.
+The distillation and evaluation are achieved in several scripts. We provide example scripts in the followings.
 
 **Finetuning**
 
-We provide an example of finetuning `bert-base-uncased` on RTE in `scripts/run_finetuning_rte.sh`. We explain some important arguments in following:
-* `--model_type`: Variant to use, should be `ft` in the case.
-* `--model_path`: Pretrained language models to start with, should be `bert-base-uncased` in the case and can be others as you like.
-* `--task_name`: Task to use, should be chosen from `rte`, `mrpc`, `stsb`, `sst2`, `qnli`, `qqp`, `mnli`, and `mnlimm`.
-* `--data_type`: Input format to use, default to `combined`.
+We do not provide scripts of finetuning teacher models, but you can find ones in our previous work [StarK](https://github.com/GeneZC/StarK/blob/main/run_finetuning.py). Otherwise, you can also use our code to realize the finetuning by ignoring the existence of teacher models, an example could be `bert_scripts/run_finetuning_conll.sh`.
 
-**Pruning**
+**Sparsification**
 
-We provide and example of pruning a finetuned checkpoint on RTE in `scripts/run_pruning_rte.sh`. The arguments should be self-contained.
+We provide example scripts of sparsifying/pruning finetuned teacher models. The pruned models would be used to initialize the student models. For example, `bert_scripts/run_sparsification_mrpc.sh` is used to prune a teacher model finetuned on MRPC. We explain some key arguments in the following:
+* `--model_type`: variant to use, should be `sparsebert_cls` for MRPC. Here, `cls` stands for classification that accords with GLUE, and `ner` stands for named entity recognition instead.
+* `--teacher_model_path`: finetuned teacher models to sparsify, should be the path to finetuned checkpoint.
+* `--task_name`: task data to use, should align with the data that teacher models are finetuned on and be `mrpc` for MRPC. 
+* `--data_type`: task pipeline to use, should align with the `model_type`. For example, `bert_cls` should always be used if the `model_type` is `sparsebert_cls`.
 
-**Distillation**
+**(Conventional) Distillation**
 
-We provide an example of distilling a finetuned teacher to a layer-dropped or parameter-pruned student on RTE in `scripts/run_distillation_rte.sh`. We explain some important arguments in following:
-* `--model_type`: Variant to use, should be `kd` in the case.
-* `--teacher_model_path`: Teacher models to use, should be the path to the finetuned teacher checkpoint.
-* `--student_model_path`: Student models to initialize, should be the path to the pruned/finetuned teacher checkpoint depending on the way you would like to initialize the student.
-* `--student_sparsity`: Student sparsity, should be set if you would like to use parameter-pruned student, e.g., 70. Otherwise, this argument should be left blank.
-* `--student_layer`: Student layer, should be set if you would like to use layer-dropped student, e.g., 4.
+We provide example scripts of conventionally distilling finetuned teacher models to layer-dropped or parameter-sparsified student models. For example, `bert_scripts/run_distillation_mrpc.sh` is used to distill a teacher model finetuned on MRPC to a properly-initialized (either layer-dropped or parameter-sparsified) student model. We explain some key arguments in following:
+* `--model_type`: similar to above.
+* `--teacher_model_path`: similar to above.
+* `--task_name`: similar to above.
+* `--data_type`: similar to above.
+* `--selection_metric`: the metric to guide the selection of the best model, should align with the task and be `acc_and_f1` for MRPC.
+* `--layer_or_sparsity`: the way to initialize the student, could be a path to a pretrained checkpoint. For example, `4L` to indicate 4 layers should be preserved for the layer-dropped student, and `90S` to indicate 10% parameters should be preserved for the parameter-sparsified student (only when the teacher is prunable, i.e., has been sparsified before).
 
-**Teacher Sparsification**
+**MaxiDisc**
 
-We provide an example of sparsfying the teacher based on the student on RTE in `scripts/run_sparsification_rte.sh`. We explain some important arguments in following:
-* `--model_type`: Variant to use, should be `kd` in the case.
-* `--teacher_model_path`: Teacher models to use, should be the path to the finetuned teacher checkpoint.
-* `--student_model_path`: Student models to use, should be the path to the distilled student checkpoint.
-* `--student_sparsity`: Student sparsity, should be set if you would like to use parameter-pruned student, e.g., 70. Otherwise, this argument should be left blank.
-* `--student_layer`: Student layer, should be set if you would like to use layer-dropped student, e.g., 4.
-* `--lam`: the knowledgeableness tradeoff term to keep a balance between expressiveness and student-friendliness.
+We provide example scripts of distilling finetuned teacher models via teacher assistants with maximal efforts. For example, For example, `bert_scripts/run_maxidisc_mrpc.sh` is used to distill a teacher model finetuned on MRPC to a properly-initialized (either layer-dropped or parameter-sparsified) student model via teacher assistants. And you should find the optimal teacher assiatant by many trials. We explain some important arguments in following:
+* `--model_type`: similar to above.
+* `--teacher_model_path`: similar to above.
+* `--task_name`: similar to above.
+* `--data_type`: similar to above.
+* `--layer_or_sparsity_path`: similar to `layer_or_sparsity`, this gives a sequential distillation path. `6,4L` to indicate the 4-layer student distilled with a 6-layer teacher assistant, and `80,90S` to indicate the 90% student distilled with a 80% teacher assistant.
 
-**Rewinding**
+**MiniDisc**
 
-We provide an example of rewinding the student on RTE in `scripts/run_rewinding_rte.sh`. We explain some important arguments in following:
-* `--model_type`: Variant to use, should be `kd` in the case.
-* `--teacher_model_path`: Teacher models to use, should be the path to the sparsified teacher checkpoint.
-* `--student_model_path`: Student models to initialize, should be the path to the pruned/finetuned teacher checkpoint depending on the way you would like to initialize the student.
-* `--student_sparsity`: Student sparsity, should be set if you would like to use parameter-pruned student, e.g., 70. Otherwise, this argument should be left blank.
-* `--student_layer`: Student layer, should be set if you would like to use layer-dropped student, e.g., 4.
-* `--lam`: the knowledgeableness tradeoff term to keep a balance between expressiveness and student-friendliness. Here, it is just used for folder names.
-! -->
+We provide example scripts of distilling finetuned teacher models via teacher assistants with minimal efforts. For example, For example, `bert_scripts/run_minidisc_mrpc.sh` is used to distill a teacher model finetuned on MRPC to a properly-initialized (either layer-dropped or parameter-sparsified) student model via teacher assistants. And you should find the optimal teacher assiatant in only one trial. We explain some important arguments in following:
+* `--model_type`: similar to above.
+* `--teacher_model_path`: similar to above.
+* `--task_name`: similar to above.
+* `--data_type`: similar to above.
+* `--target_iteration`: num of iterations, equals to num of inserted teacher assiatants plus 1, default to `2`, which is fairly enough as discussed in our paper.
+* `--target_sparsity`: sparsity of the student, and MiniDisc only supports parameter-sparsified students.
+* `--lam`: lambda to use, the value in lambda-tradeoff, default to `0.2`.
+
+:warning: After experiments, we find that the optimal teacher assistants can hardly fall in sparsities larger than 50%. So we directly truncate the number of teacher assitant candidates according to this obervation, leading to a further speedup in practice. However, we do think this heuristic may not fit for all cases (e.g., large language models) so we do not include it in the paper.
 
 ## Bugs or Questions?
 
