@@ -83,7 +83,7 @@ We provide example scripts of distilling finetuned teacher models via teacher as
 * `--target_sparsity`: sparsity of the student, and MiniDisc only supports parameter-sparsified students.
 * `--lam`: lambda to use, the value in lambda-tradeoff, default to `0.2`.
 
-:warning: After experiments, we find that the optimal teacher assistants can hardly fall in sparsities larger than 50%. So we directly truncate the number of teacher assitant candidates according to this obervation, leading to a further speedup in practice. However, we do think this heuristic may not fit for all cases (e.g., large language models) so we do not include it in the paper.
+:warning: After experiments, we find that the optimal teacher assistants can hardly fall in sparsities smaller than 50%. So we directly truncate the number of teacher assitant candidates according to this obervation, leading to a further speedup in practice. However, we do think this heuristic may not fit for all cases (e.g., large language models) so we do not include it in the paper.
 
 ## Bugs or Questions?
 
