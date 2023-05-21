@@ -15,7 +15,7 @@ This repository contains code for paper titled [MiniDisc: Minimal Distillation S
   - [Getting Started](#getting-started)
     - [Requirements](#requirements)
     - [GLUE & CoNLL Data](#glue&conll-data)
-    - [Training & Evaluation](#training&evaluation)
+    - [Distillation](#distillation)
   - [Bugs or Questions?](#bugs-or-questions)
   - [Citation](#citation)
 
@@ -37,9 +37,9 @@ Download GLUE data through the [link](https://github.com/nyu-mll/jiant/blob/mast
 
 :warning: The CoNLL data is not fully tested, but we want to include it for potential interests.
 
-### Distillation & Evaluation
+### Distillation
 
-The distillation and evaluation are achieved in several scripts. We provide example scripts in the followings.
+The distillation is achieved in several scripts. We provide example scripts in the followings.
 
 **Finetuning**
 
