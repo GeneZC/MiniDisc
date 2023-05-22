@@ -43,7 +43,7 @@ The distillation is achieved in several scripts. We provide example scripts in t
 
 **Finetuning**
 
-We do not provide scripts of finetuning teacher models, but you can find ones in our previous work [StarK](https://github.com/GeneZC/StarK/blob/main/run_finetuning.py). Otherwise, you can also use our code to realize the finetuning by ignoring the existence of teacher models, an example could be `bert_scripts/run_finetuning_conll.sh`.
+We do not provide scripts of finetuning teacher models, but you can find ones in our previous work [StarK](https://github.com/GeneZC/StarK/blob/main/run_finetuning.py), along with finetuned [checkpoints](https://github.com/GeneZC/StarK/blob/main/README.md#training&evaluation). Otherwise, you can also use our code to realize the finetuning by ignoring the existence of teacher models, an example could be `bert_scripts/run_finetuning_conll.sh`.
 
 **Sparsification**
 
