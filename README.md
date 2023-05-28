@@ -34,11 +34,11 @@ Recent studies have uncovered that language model distillation is less effective
 - Numpy
 - Transformers
 
+:warning: We only include task-specific distillation but not task-agnostic distillation in this repository due to code discrepancy, if you are interested in that part, please refer to our more recent work [MiniMoE](https://github.com/GeneZC/MiniMoE).
+
 ### GLUE & CoNLL Data
 
 Download GLUE data through the [link](https://github.com/nyu-mll/jiant/blob/master/scripts/download_glue_data.py), and CoNLL data through another [link](https://www.clips.uantwerpen.be/conll2003/ner/) in exact CoNLL format. Put them to the corresponding directories. For example, MRPC dataset should be placed into `datasets/mrpc`.
-
-:warning: The CoNLL data is not fully tested, but we want to include it for potential interests.
 
 ### Distillation
 
@@ -59,29 +59,29 @@ We provide example scripts of sparsifying/pruning finetuned teacher models. The 
 **(Conventional) Distillation**
 
 We provide example scripts of conventionally distilling finetuned teacher models to layer-dropped or parameter-sparsified student models. For example, `bert_scripts/run_distillation_mrpc.sh` is used to distill a teacher model finetuned on MRPC to a properly-initialized (either layer-dropped or parameter-sparsified) student model. We explain some key arguments in following:
-* `--model_type`: similar to above.
-* `--teacher_model_path`: similar to above.
-* `--task_name`: similar to above.
-* `--data_type`: similar to above.
+* `--model_type`: same as above.
+* `--teacher_model_path`: same above.
+* `--task_name`: same as above.
+* `--data_type`: same as above.
 * `--selection_metric`: the metric to guide the selection of the best model, should align with the task and be `acc_and_f1` for MRPC.
 * `--layer_or_sparsity`: the way to initialize the student, could be a path to a pretrained checkpoint. For example, `4L` to indicate 4 layers should be preserved for the layer-dropped student, and `90S` to indicate 10% parameters should be preserved for the parameter-sparsified student (only when the teacher is prunable, i.e., has been sparsified before).
 
 **MaxiDisc**
 
 We provide example scripts of distilling finetuned teacher models via teacher assistants with maximal efforts. For example, For example, `bert_scripts/run_maxidisc_mrpc.sh` is used to distill a teacher model finetuned on MRPC to a properly-initialized (either layer-dropped or parameter-sparsified) student model via teacher assistants. And you should find the optimal teacher assiatant by many trials. We explain some important arguments in following:
-* `--model_type`: similar to above.
-* `--teacher_model_path`: similar to above.
-* `--task_name`: similar to above.
-* `--data_type`: similar to above.
+* `--model_type`: same as above.
+* `--teacher_model_path`: same as above.
+* `--task_name`: same as above.
+* `--data_type`: same as above.
 * `--layer_or_sparsity_path`: similar to `layer_or_sparsity`, this gives a sequential distillation path. `6,4L` to indicate the 4-layer student distilled with a 6-layer teacher assistant, and `80,90S` to indicate the 90%-sparsity student distilled with a 80%-sparsity teacher assistant.
 
 **MiniDisc**
 
 We provide example scripts of distilling finetuned teacher models via teacher assistants with minimal efforts. For example, For example, `bert_scripts/run_minidisc_mrpc.sh` is used to distill a teacher model finetuned on MRPC to a properly-initialized (either layer-dropped or parameter-sparsified) student model via teacher assistants. And you should find the optimal teacher assiatant in only one trial. We explain some important arguments in following:
-* `--model_type`: similar to above.
-* `--teacher_model_path`: similar to above.
-* `--task_name`: similar to above.
-* `--data_type`: similar to above.
+* `--model_type`: same as above.
+* `--teacher_model_path`: same as above.
+* `--task_name`: same as above.
+* `--data_type`: same as above.
 * `--target_iteration`: num of iterations, equals to num of inserted teacher assiatants plus 1, default to `2`, which is fairly enough as discussed in our paper.
 * `--target_sparsity`: sparsity of the student, and MiniDisc only supports parameter-sparsified students.
 * `--lam`: lambda to use, the value in lambda-tradeoff, default to `0.2`.
