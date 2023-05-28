@@ -6,8 +6,8 @@ This repository contains code for paper titled [MiniDisc: Minimal Distillation S
 
 <!-- Thanks for your interest in our repo! -->
 
-* 21/5/23: We released our code. Check it out!
-* 5/5/23: We released our paper. Check it out!
+* 21/5/2023: We released our code. Check it out!
+* 5/5/2023: We released our paper. Check it out!
 
 ## Quick Links
 
