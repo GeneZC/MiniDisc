@@ -58,7 +58,7 @@ We provide example scripts of sparsifying/pruning finetuned teacher models. The 
 
 **(Conventional) Distillation**
 
-We provide example scripts of conventionally distilling finetuned teacher models to layer-dropped or parameter-sparsified student models. For example, `bert_scripts/run_distillation_mrpc.sh` is used to distill a teacher model finetuned on MRPC to a properly-initialized (either layer-dropped or parameter-sparsified) student model. We explain some key arguments in following:
+We provide example scripts of conventionally distilling finetuned teacher models to layer-dropped or parameter-sparsified student models. For example, `bert_scripts/run_distillation_mrpc.sh` is used to distill a teacher model finetuned on MRPC to a properly-initialized (either layer-dropped or parameter-sparsified) student model. We explain some key arguments in the following:
 * `--model_type`: same as above.
 * `--teacher_model_path`: same above.
 * `--task_name`: same as above.
@@ -68,7 +68,7 @@ We provide example scripts of conventionally distilling finetuned teacher models
 
 **MaxiDisc**
 
-We provide example scripts of distilling finetuned teacher models via teacher assistants with maximal efforts. For example, For example, `bert_scripts/run_maxidisc_mrpc.sh` is used to distill a teacher model finetuned on MRPC to a properly-initialized (either layer-dropped or parameter-sparsified) student model via teacher assistants. And you should find the optimal teacher assiatant by many trials. We explain some important arguments in following:
+We provide example scripts of distilling finetuned teacher models via teacher assistants with maximal efforts. For example, For example, `bert_scripts/run_maxidisc_mrpc.sh` is used to distill a teacher model finetuned on MRPC to a properly-initialized (either layer-dropped or parameter-sparsified) student model via teacher assistants. And you should find the optimal teacher assiatant by many trials. We explain some important arguments in the following:
 * `--model_type`: same as above.
 * `--teacher_model_path`: same as above.
 * `--task_name`: same as above.
@@ -77,7 +77,7 @@ We provide example scripts of distilling finetuned teacher models via teacher as
 
 **MiniDisc**
 
-We provide example scripts of distilling finetuned teacher models via teacher assistants with minimal efforts. For example, For example, `bert_scripts/run_minidisc_mrpc.sh` is used to distill a teacher model finetuned on MRPC to a properly-initialized (either layer-dropped or parameter-sparsified) student model via teacher assistants. And you should find the optimal teacher assiatant in only one trial. We explain some important arguments in following:
+We provide example scripts of distilling finetuned teacher models via teacher assistants with minimal efforts. For example, For example, `bert_scripts/run_minidisc_mrpc.sh` is used to distill a teacher model finetuned on MRPC to a properly-initialized (either layer-dropped or parameter-sparsified) student model via teacher assistants. And you should find the optimal teacher assiatant in only one trial. We explain some important arguments in the following:
 * `--model_type`: same as above.
 * `--teacher_model_path`: same as above.
 * `--task_name`: same as above.
