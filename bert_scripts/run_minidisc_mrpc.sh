@@ -1,11 +1,12 @@
 #!/bin/bash
+cd ..
 
 python run_minidisc_cls.py \
     --model_type ${1} \
-    --teacher_model_path path/to/sparsebert_base_mrpc \
+    --teacher_model_path 'outputs/sparsebert_cls_none_mrpc/' \
     --task_name mrpc \
     --data_type bert_cls \
-    --selection_metric acc_and_f1 \
+    --selection_metric f1 \
     --max_length 128 \
     --per_device_train_batch_size 16 \
     --per_device_eval_batch_size 32 \
@@ -20,3 +21,5 @@ python run_minidisc_cls.py \
     --do_train \
     --do_infer \
     --model_suffix ${2}
+
+# --selection_metric acc_and_f1 \

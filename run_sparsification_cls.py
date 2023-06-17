@@ -95,7 +95,7 @@ def parse_args():
         default=32,
         help="Batch size (per device) for the evaluation loader.",
     )
-    parser.add_argument("--use_cpu", action="store_true", help="Use CPU or not.")
+    parser.add_argument("--use_cpu", action="store_false", help="Use CPU or not.") # why set to store-ture here, should be store false
     parser.add_argument("--model_suffix", type=str, default="none", help="Model suffix.")
     args = parser.parse_args()
     return args

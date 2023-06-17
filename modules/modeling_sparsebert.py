@@ -365,6 +365,7 @@ class SparseBertLayer(nn.Module):
 
     def reorder_heads(self, indices):
         n, h = self.attention.self.num_attention_heads, self.attention.self.attention_head_size
+        # make changes here
         indices = torch.arange(n * h).reshape(n, h)[indices].reshape(-1).contiguous().long()
         self.attention.self.query.reorder(indices)
         self.attention.self.key.reorder(indices)

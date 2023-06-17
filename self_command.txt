@@ -1,0 +1,5 @@
+# 先使用sparsification 来generate sparse结构 会保存一个文件在outputs中
+bash run_sparsification_mrpc_self.sh
+
+# 使用minidisc来进行joint optimization
+bash /home/ch7858/MiniDisc/bert_scripts/run_minidisc_mrpc.sh sparsebert_cls 1
