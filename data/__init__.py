@@ -112,9 +112,9 @@ class DistributedDataset(IterableDataset):
         if self.shuffle:
             generator = torch.Generator()
             generator.manual_seed(int(torch.empty((), dtype=torch.int64).random_().item()))
-            indices = torch.randperm(self.num_examples, generator=generator).tolist()
+            indices = torch.randperm(len(self.data), generator=generator).tolist()
         else:
-            indices = list(range(self.num_examples))
+            indices = list(range(len(self.data)))
 
         num_padding_examples = self.total_num_examples - len(indices)
         # Is the logic necessary?
@@ -123,10 +123,10 @@ class DistributedDataset(IterableDataset):
         else:
             indices += (indices * math.ceil(num_padding_examples / len(indices)))[:num_padding_examples]
 
-        assert len(indices) == self.num_total_examples
+        assert len(indices) == self.total_num_examples
 
         # Subsample.
-        indices = indices[self.rank:self.num_total_examples:self.num_replicas]
+        indices = indices[self.rank:self.total_num_examples:self.num_replicas]
         assert len(indices) == self.num_examples
 
         for idx in indices:
